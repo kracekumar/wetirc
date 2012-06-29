@@ -1,0 +1,5 @@
+twisted == 11.1.0
+pyzmq == 2.2.0
+brubeck == 0.4.0
+txZMQ == 0.5.0
+fabric
