@@ -23,5 +23,5 @@ dist
 .hgignore
 .coverage
 *log
-settings
+settings.py
 #*
