@@ -22,5 +22,6 @@ dist
 .hg
 .hgignore
 .coverage
-log
+*log
 settings
+#*
