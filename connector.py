@@ -23,14 +23,12 @@ class LogBot(irc.IRCClient):
     A Logging IRC bot
     """
     nickname = generate_nick(settings.NICKNAME)
-    is_joined = False
 
     def get_current_time(self):
         return datetime.datetime.utcnow()
 
     def connectionMade(self):
         irc.IRCClient.connectionMade(self)
-        self.is_joined = True
         with open(''.join(['meta', '_', self.get_current_time().strftime("%Y-%m-%d"), '.log']), "a") as f:
             f.write("[connected at %s] \n" % self.get_current_time().strftime("[%H:%M:%S]"))
 
@@ -40,26 +38,18 @@ class LogBot(irc.IRCClient):
             f.write("[disconnected at %s]" % self.get_current_time().strftime("[%H:%M:%S]"))
 
 
-    def dataReceived(self, data):
-        irc.IRCClient.dataReceived(self, data)
-        #print data
-        if data not in ('', None) and data.find('#') != -1:
-            pass
-
     #callbacks for events
     def signedOn(self):
         for channel in self.factory.details:
             print self.join(channel)
 
     def joined(self, channel):
-        self.is_joined = True
         with open(''.join(['meta', '_', self.get_current_time().strftime("%Y-%m-%d"), '.log']), "a") as f:
             f.write("[I have joined %s at %s]\n" % (channel, self.get_current_time().strftime("%H:%M:%S")))
 
     def privmsg(self, user, channel, msg):
         user = user.split('!', 1)[0]
         with open(''.join([channel, '_', self.get_current_time().strftime("%Y-%m-%d"), '.log']), "a") as f:
-            print msg
             f.write("[%s]: <%s> %s\n" % (self.get_current_time().strftime("%H:%M:%S"), user, msg))
 
         #check if someone sends private message
