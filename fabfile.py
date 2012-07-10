@@ -1,8 +1,9 @@
 #! /usr/bin/env python
 from fabric.api import local
 
+
 def push(branch):
-    local("git push -u origin %s"%branch)
+    local("git push -u origin %s" % branch)
 
 
 def pull():
@@ -10,7 +11,7 @@ def pull():
 
 
 def commit(message):
-    local("git commit -am '%s'"%message)
+    local("git commit -am '%s'" % message)
 
 
 def commit_and_push(message, branch):
@@ -23,4 +24,16 @@ def track_all():
 
 
 def track(filename):
-    local("git add %s"%filename)
+    local("git add %s" % filename)
+
+
+def load_mongrel():
+    local("m2sh load -config mongrel2.conf -db the.db")
+
+
+def start_mongrel():
+    local("m2sh start -db the.db -host localhost")
+
+
+def start_brubeck():
+    local("python app.py")

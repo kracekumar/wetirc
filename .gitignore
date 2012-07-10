@@ -25,3 +25,8 @@ dist
 *log
 settings.py
 #*
+*.db
+*.sqlite
+meta*
+*.pid
+
