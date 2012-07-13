@@ -10,12 +10,11 @@ from twisted.python import log
 import datetime
 import sys
 import random
-
 import settings
 
 
 def generate_nick(nickname):
-    return nickname + str(random.randint(settings.NICK_START, settings.NICK_END ))
+    return nickname + str(random.randint(settings.NICK_START, settings.NICK_END))
 
 
 class LogBot(irc.IRCClient):
@@ -38,7 +37,6 @@ class LogBot(irc.IRCClient):
         irc.IRCClient.connectionLost(self, reason)
         with open(''.join(['meta', '_', self.get_current_time().strftime("%Y-%m-%d"), '.log']), "a") as f:
             f.write("[disconnected at %s]" % self.get_current_time().strftime("[%H:%M:%S]"))
-
 
     def dataReceived(self, data):
         irc.IRCClient.dataReceived(self, data)
@@ -78,14 +76,12 @@ class LogBot(irc.IRCClient):
         with open(''.join([channel, '_', self.get_current_time().strftime("%Y-%m-%d"), '.log']), "a") as f:
             f.write("[%s]: * %s %s" % (self.get_current_time().strftime("%H:%M:%S"), user, msg))
 
-
     def irc_NICK(self, prefix, params):
         """Called when an IRC user changes their nicknames."""
         old_nick = prefix.split('!')[0]
         new_nick = params[0]
         with open(''.join(['meta', '_', self.get_current_time().strftime("%Y-%m-%d"), '.log']), "a") as f:
             f.write("[%s]: %s is now known as %s\n" % (self.get_current_time().strftime("%H:%M:%S"), old_nick, new_nick))
-
 
     def irc_JOIN(self, prefix, params):
         print "user joined the channel"
@@ -102,13 +98,13 @@ class LogBot(irc.IRCClient):
         with open(''.join(['meta', '_', self.get_current_time().strftime("%Y-%m-%d"), '.log']), "a") as f:
             f.write("<[%s]: [%s] user Left the channel %s>" % (self.get_current_time().strftime("%H:%M:%S"), user, channel))
 
-
     def userKicked(self, user, channel):
         with open(''.join(['meta', '_', self.get_current_time().strftime("%Y-%m-%d"), '.log']), "a") as f:
             f.write("<[%s]: [%s] kicked from the channel %s>" % (self.get_current_time().strftime("%H:%M:%S"), user, channel))
 
     def irc_PING(self, prefix, params):
         irc.IRCClient.irc_PING(self, prefix, params)
+
 
 class LogBotFactory(protocol.ClientFactory):
     """
@@ -138,7 +134,7 @@ if __name__ == '__main__':
 
     #create factory protocol and application
     now = datetime.date.today().strftime("%Y-%m-%d")
-    channels = ["hasgeek", "pocoo", "brubeck", "crunchbang", "twisted"]
+    channels = settings.CHANNELS
     details = {channel: channel + now + '.log' for channel in channels}
     #channels = ["twisted"]
     reactor.connectTCP("irc.freenode.net", 6667, LogBotFactory(details))
