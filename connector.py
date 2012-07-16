@@ -12,7 +12,8 @@ import sys
 import random
 import settings
 
-
+#change working dir
+os.chdir(settings.IRCLOG)
 def generate_nick(nickname):
     return nickname + str(random.randint(settings.NICK_START, settings.NICK_END))
 
