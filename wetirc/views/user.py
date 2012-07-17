@@ -1,4 +1,8 @@
+#! -*- coding: utf-8 -*-
+
 from brubeck.templating import Jinja2Rendering
+import  wetirc
+print wetirc.app
 
 class IndexHandler(Jinja2Rendering):
     def get(self):
