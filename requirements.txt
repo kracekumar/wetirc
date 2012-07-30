@@ -7,4 +7,5 @@ fabric
 #gevent
 #gevent_zeromq
 flask
+https://github.com/hasgeek/coaster/zipball/master
 
