@@ -2,7 +2,7 @@
 
 from wetirc import app
 from flask import render_template
-
+import jinja2
 
 def make_filename(name, date):
     name = '_'.join([name, date])
@@ -45,8 +45,14 @@ def channel_dates(name, date):
 
     else:
         if check_date(date):
-            contents = '<br/>'.join(read_file(channel_name, date))
+            contents = read_file(channel_name, date)
+            for no, content in enumerate(contents):
+                tmp = content.replace("<", "[")
+                tmp = tmp.replace(">", "]")
+                contents[no] = tmp
+
+            contents = '<br/>'.join(contents)
             return '<br/>'.join(["<b>Time is in UTC format</b><br/>", contents])
         else:
-            message = "Use YYYY-MM-DD format. E.G: /#hasgeek/2012-07-23"
+            message = "Use YYYY-MM-DD format. E.G: /hasgeek/2012-07-23"
             return message
