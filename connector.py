@@ -11,7 +11,7 @@ import datetime
 import sys
 import random
 
-import settings
+import instance.development as settings
 
 
 def generate_nick(nickname):
