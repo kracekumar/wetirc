@@ -4,7 +4,8 @@ from flask import Flask
 from coaster import configureapp
 
 app = Flask('wetirc', instance_relative_config=True)
-configureapp(app, 'ENVIRONMENT')
+app.config.from_pyfile('settings.py')
+#configureapp(app, 'ENVIRONMENT')
 
 # setting here path
 import os
