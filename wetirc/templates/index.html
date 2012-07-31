@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+    Welcome to wetirc. <br/>
+    Following IRC Channels logs are available.
+    {% for channel in channels %}
+        {{ channel }} </br/>
+    {% endfor %}
+{% endblock %}
