@@ -28,3 +28,5 @@ settings.py
 logs
 tmp
 *.sqlite
+instance/settings.py
+instance/development.py
