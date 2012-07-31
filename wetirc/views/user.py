@@ -23,8 +23,11 @@ def check_date(date):
 
 
 def read_file(filename, date):
-    with open(''.join([app.config['IRCLOG'], make_filename(filename, date)])) as f:
-        return f.readlines()
+    try:
+        with open(''.join([app.config['IRCLOG'], make_filename(filename, date)])) as f:
+            return f.readlines()
+    except:
+        return "No File for given channel/date"
 
 
 @app.route('/')
