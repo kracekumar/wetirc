@@ -1,7 +1,7 @@
 #! -*- coding: utf-8 -*-
 
 from flask import Flask
-from coaster import configureapp
+
 
 app = Flask('wetirc', instance_relative_config=True)
 app.config.from_pyfile('settings.py')
